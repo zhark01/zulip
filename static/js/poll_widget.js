@@ -59,7 +59,6 @@ class PollData {
         for (const [key, obj] of this.key_to_option) {
             const voters = Array.from(obj.votes.keys());
             const current_user_vote = voters.includes(this.me);
-
             options.push({
                 option: obj.option,
                 names: people.safe_full_names(voters),
@@ -208,7 +207,7 @@ exports.activate = function (opts) {
         const author_help = is_my_poll && !has_question;
 
         elem.find(".poll-question-header").toggle(!input_mode);
-        elem.find(".poll-question-header").text(question);
+        elem.find(".poll-question-header").html(question);
         elem.find(".poll-edit-question").toggle(can_edit);
         update_edit_controls();
 
@@ -273,6 +272,7 @@ exports.activate = function (opts) {
         }
 
         poll_option_input.val("").trigger("focus");
+        console.log(option);
 
         const data = poll_data.handle.new_option.outbound(option);
         callback(data);

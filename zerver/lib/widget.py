@@ -3,7 +3,8 @@ import re
 from typing import Any, MutableMapping, Optional, Tuple
 
 from zerver.models import SubMessage
-
+from zerver.lib.markdown import markdown_convert
+from zerver.models import get_realm
 
 def get_widget_data(content: str) -> Tuple[Optional[str], Optional[str]]:
     valid_widget_types = ['poll', 'todo']
@@ -28,17 +29,18 @@ def get_extra_data_from_widget_type(content: str,
         question = ''
         options = []
         if lines and lines[0]:
-            question = lines.pop(0).strip()
+            question = markdown_convert(content = lines.pop(0).strip(), message_realm=get_realm('zulip'),)
         for line in lines:
             # If someone is using the list syntax, we remove it
             # before adding an option.
             option = re.sub(r'(\s*[-*]?\s*)', '', line.strip(), 1)
             if len(option) > 0:
-                options.append(option)
+                options.append(markdown_convert(content = option, message_realm=get_realm('zulip'),))
         extra_data = {
             'question': question,
             'options': options,
         }
+
         return extra_data
     return None
 
