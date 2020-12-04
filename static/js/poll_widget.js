@@ -86,7 +86,6 @@ class PollData {
                 };
 
                 this.my_idx += 1;
-                console.log(event)
                 return event;
             },
 
