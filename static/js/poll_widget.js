@@ -86,7 +86,7 @@ class PollData {
                 };
 
                 this.my_idx += 1;
-
+                console.log(event)
                 return event;
             },
 
@@ -244,9 +244,9 @@ exports.activate = function (opts) {
             new_question = old_question;
         }
 
-        // Optimistically set the question locally.
-        poll_data.set_question(new_question);
-        render_question();
+        // Decided not to do this to prevent XSS attacks, so that escaping could happen
+        // poll_data.set_question(new_question);
+        // render_question();
 
         // If there were no actual edits, we can exit now.
         if (new_question === old_question) {
@@ -272,7 +272,6 @@ exports.activate = function (opts) {
         }
 
         poll_option_input.val("").trigger("focus");
-        console.log(option);
 
         const data = poll_data.handle.new_option.outbound(option);
         callback(data);
