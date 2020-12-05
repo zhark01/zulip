@@ -1,5 +1,6 @@
 import datetime
 import itertools
+import json
 import logging
 import os
 import time
@@ -37,7 +38,6 @@ from django.utils.translation import ugettext as _
 from psycopg2.extras import execute_values
 from psycopg2.sql import SQL
 from typing_extensions import TypedDict
-import json
 
 from analytics.lib.counts import COUNT_STATS, RealmCount, do_increment_logging_stat
 from analytics.models import StreamCount

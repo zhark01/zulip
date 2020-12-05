@@ -2,9 +2,9 @@ import json
 import re
 from typing import Any, MutableMapping, Optional, Tuple
 
-from zerver.models import SubMessage
 from zerver.lib.markdown import markdown_convert
-from zerver.models import get_realm
+from zerver.models import SubMessage, get_realm
+
 
 def filter_and_render_string(input: str) -> str:
     # Run through the markdown engine so that links will work
