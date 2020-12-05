@@ -1819,7 +1819,6 @@ def do_add_submessage(realm: Realm,
         content=content,
     )
     submessage.save()
-    print("here")
     event = dict(
         type="submessage",
         msg_type=msg_type,
