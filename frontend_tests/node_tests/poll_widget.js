@@ -1,11 +1,11 @@
 "use strict";
 
-const { strict: assert } = require("assert");
+const {strict: assert} = require("assert");
 
-const { stub_templates } = require("../zjsunit/handlebars");
-const { set_global, zrequire } = require("../zjsunit/namespace");
-const { run_test } = require("../zjsunit/test");
-const { make_zjquery } = require("../zjsunit/zjquery");
+const {stub_templates} = require("../zjsunit/handlebars");
+const {set_global, zrequire} = require("../zjsunit/namespace");
+const {run_test} = require("../zjsunit/test");
+const {make_zjquery} = require("../zjsunit/zjquery");
 
 zrequire("poll_widget");
 
@@ -116,7 +116,7 @@ run_test("PollData my question", () => {
     });
 
     const vote_outbound_event = data_holder.handle.vote.outbound("99,1");
-    assert.deepEqual(vote_outbound_event, { type: "vote", key: "99,1", vote: -1 });
+    assert.deepEqual(vote_outbound_event, {type: "vote", key: "99,1", vote: -1});
 
     vote_event = {
         type: "vote",
@@ -227,13 +227,15 @@ run_test("activate another person poll", () => {
 
     assert.equal(widget_elem.html(), "widgets/poll_widget");
     assert.equal(widget_option_container.html(), "widgets/poll_widget_results");
-    setTimeout(() => { assert.equal(poll_question_header.text(), "What do you want?"); }, 50);
+    setTimeout(() => {
+        assert.equal(poll_question_header.text(), "What do you want?");
+    }, 50);
     {
         /* Testing data sent to server on adding option */
         poll_option_input.val("cool choice");
         out_data = undefined;
         poll_option.trigger("click");
-        assert.deepEqual(out_data, { type: "new_option", idx: 1, option: "cool choice" });
+        assert.deepEqual(out_data, {type: "new_option", idx: 1, option: "cool choice"});
 
         poll_option_input.val("");
         out_data = undefined;
@@ -271,7 +273,7 @@ run_test("activate another person poll", () => {
                 target: poll_vote_button,
             }),
         );
-        assert.deepEqual(out_data, { type: "vote", key: "100,1", vote: 1 });
+        assert.deepEqual(out_data, {type: "vote", key: "100,1", vote: 1});
     }
 
     const add_question_event = [
@@ -373,8 +375,9 @@ run_test("activate own poll", () => {
 
     assert.equal(widget_elem.html(), "widgets/poll_widget");
     assert.equal(widget_option_container.html(), "widgets/poll_widget_results");
-    setTimeout(() => { assert.equal(poll_question_header.text(), "Where to go?"); }, 50);
-
+    setTimeout(() => {
+        assert.equal(poll_question_header.text(), "Where to go?");
+    }, 50);
 
     {
         /* Testing data sent to server on editing question */
@@ -382,13 +385,15 @@ run_test("activate own poll", () => {
         out_data = undefined;
         show_submit = true;
         poll_question_submit.trigger("click");
-        setTimeout(() => { assert.deepEqual(out_data, { type: "question", question: "Is it new?" }); }, 50);
-
+        setTimeout(() => {
+            assert.deepEqual(out_data, {type: "question", question: "Is it new?"});
+        }, 50);
 
         poll_option_input.val("");
         out_data = undefined;
         poll_question_submit.trigger("click");
-        setTimeout(() => { assert.deepEqual(out_data, undefined); }, 50);
-
+        setTimeout(() => {
+            assert.deepEqual(out_data, undefined);
+        }, 50);
     }
 });
